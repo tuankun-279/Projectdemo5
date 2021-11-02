@@ -1,0 +1,423 @@
+﻿@model IEnumerable<Project_Real__estate.Models.Advertisement>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Rethouse - Real Estate HTML Template">
+    <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
+    <meta name="author" content="mardianto - retenvi.com">
+    <title>Rethouse - Real Estate HTML Template</title>
+
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <link rel="manifest" href="site.webmanifest">
+    <!-- favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="theme-color" content="#3454d1">
+    <link href="~/Content/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="jumbotron bg-theme-v5">
+        <div class="topbar d-none d-sm-block">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="topbar-left">
+                            <div class="topbar-text">
+                               @DateTime.Now 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="list-unstyled topbar-right">
+                            <ul class="topbar-link">
+                                <li><a href="#" title="">Career</a></li>
+                                <li><a href="#" title="">Contact Us</a></li>
+                                <li><a href="@Url.Action("Login","RegisterLoginView")" title="">Login / Register</a></li>
+                            </ul>
+                            <ul class="topbar-sosmed">
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
+            <div class="container">
+                <a class="navbar-brand" href="@Url.Action("Index","Home")">
+                    <img src="~/Images/logo-blue.png" alt="">
+                    <img src="~/Images/logo-blue-stiky.png" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="main_nav99">
+                    <ul class="navbar-nav mx-auto ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active " href="@Url.Action("Index","Home")" > Home </a>
+                            
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Pages </a>
+                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("IndexRentSearch","Home")"> Rent </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("IndexBuySearch","Home")"> Buy </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Agency </a>
+                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("AgencyList","Home")"> Agent </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="@Url.Action("SellerList","Home")"> Seller </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact","Home")"> contact </a></li>
+                    </ul>
+
+
+                    <!-- Search bar.// -->
+                    <ul class="navbar-nav ">
+                        <li>
+                            <a href="@Url.Action("NewPost","Home")" class="btn btn-primary text-capitalize">
+                                <i class="fa fa-plus-circle mr-1"></i> add listing
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Search content bar.// -->
+                    <div class="top-search navigation-shadow">
+                        <div class="container">
+                            <div class="input-group ">
+                                <form action="#">
+
+                                    <div class="row no-gutters mt-3">
+                                        <div class="col">
+                                            <input class="form-control border-secondary border-right-0 rounded-0" type="search"
+                                                   value="" placeholder="Search " id="example-search-input4">
+                                        </div>
+                                        <div class="col-auto">
+                                            <a class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right"
+                                               href="/search-result.html">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Search content bar.// -->
+                </div> <!-- navbar-collapse.// -->
+            </div>
+        </nav>
+        <!-- END NAVBAR -->
+        <!-- HERO -->
+        <div class="wrap__intro d-flex align-items-md-center  ">
+            <div class="container  ">
+                <div class="row align-items-center justify-content-start flex-wrap">
+                    <div class="col-lg-12 mx-auto">
+                        <div class="wrap__intro-heading" data-aos="fade-up">
+
+                            <h1 class="text-capitalize">
+                                Find your dream house
+                            </h1>
+                            <p>
+                                Your Property, Our Priority and From as low as $10 per day with limited time offer
+                                discounts
+                            </p>
+
+                            <div class="bg__overlay-black p-4">
+                                <div class="search__property">
+                                    <div class="position-relative">
+                                        <ul class="nav nav-tabs nav-tabs-02 mb-3 justify-content-start" id="pills-tab" role="tablist">
+                                            <li class="nav-item mr-1">
+                                                <a class="nav-link active" id="buy-tab" data-toggle="pill" href="#buy" role="tab" aria-controls="buy"
+                                                   aria-selected="true">
+                                                    Buy
+                                                </a>
+                                            </li>
+                                            <li class="nav-item mr-1">
+                                                <a class="nav-link" id="rent-tab" data-toggle="pill" href="#rent" role="tab" aria-controls="rent"
+                                                   aria-selected="false">Rent</a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade active show" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+                                                <div class=" search__container">
+                                                    @using (Html.BeginForm("IndexBuySearch", "Home", FormMethod.Post))
+                                                    {
+                                                        <div class="row input-group no-gutters">
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Category", null, "Property Type", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Area", null, "Area From", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Bedroom", null, "Bedrooms", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Bath", null, "Bathrooms", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("City", null, "City/Province", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2 input-group-append">
+                                                                <button class="btn btn-primary btn-block" type="submit">
+                                                                    <i class="fa fa-search"></i> <span class="ml-1 text-uppercase">search</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="rent" role="tabpanel" aria-labelledby="rent-tab">
+                                                <div class=" search__container">
+                                                    @using (Html.BeginForm("IndexRentSearch", "Home", FormMethod.Post))
+                                                    {
+                                                        <div class="row input-group no-gutters">
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Category", null, "Property Type", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Area", null, "Area From", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Bedroom", null, "Bedrooms", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("Bath", null, "Bathrooms", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                @Html.DropDownList("City", null, "City/Province", new { @class = "select_option form-control" })
+                                                            </div>
+                                                            <div class="col-lg-2 input-group-append">
+                                                                <button class="btn btn-primary btn-block" type="submit">
+                                                                    <i class="fa fa-search"></i> <span class="ml-1 text-uppercase">search</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END HERO -->
+    </header>
+    <!-- END HEADER -->
+
+    <div>
+        @RenderBody()
+    </div>
+    
+    <!-- FOOTER -->
+    <!-- Footer  -->
+    <footer>
+        <div class="wrapper__footer bg__footer ">
+            <div class=" container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="widget__footer mb-3">
+                            <!-- <h4 class="footer-title">company info</h4> -->
+                            <figure>
+                                <img src="~/Images/logo-blue.png" alt="" class="logo-footer">
+                            </figure>
+                            <p>
+                                Rethouse Real Estate is a premium Property template based on Bootstrap 4 . Rethouse Real
+                                Estate helped thousands of clients to find the right property for their needs.
+
+                            </p>
+                        </div>
+                        <div class="border-line"></div>
+                        <div class="widget__footer">
+                            <h4 class="footer-title">follow us </h4>
+                            <!-- <p>
+                                Follow us and stay in touch to get the latest news
+                            </p> -->
+                            <p>
+                                <button class="btn btn-social btn-social-o facebook mr-1">
+                                    <i class="fa fa-facebook-f"></i>
+                                </button>
+                                <button class="btn btn-social btn-social-o twitter mr-1">
+                                    <i class="fa fa-twitter"></i>
+                                </button>
+
+                                <button class="btn btn-social btn-social-o linkedin mr-1">
+                                    <i class="fa fa-linkedin"></i>
+                                </button>
+                                <button class="btn btn-social btn-social-o instagram mr-1">
+                                    <i class="fa fa-instagram"></i>
+                                </button>
+
+                                <button class="btn btn-social btn-social-o youtube mr-1">
+                                    <i class="fa fa-youtube"></i>
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- QUICK LINKS -->
+                    <div class="col-md-4">
+                        <div class="widget__footer">
+                            <h4 class="footer-title">Quick Links</h4>
+                            <div class="link__category">
+                                <ul class="list-unstyled ">
+                                    <li class="list-inline-item">
+                                        <a href="#">Commercial</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">business</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">House</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Apartements</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Residential</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Villa</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Office</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Beverly Hills</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">classic</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="#">Modern</a>
+                                    </li>
+
+                                    <li class="list-inline-item">
+                                        <a href="#">Luxury</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEWSLETTERS -->
+                    <div class="col-md-4">
+                        <div class="widget__footer">
+                            <h4 class="footer-title">newsletter</h4>
+                            <!-- Form Newsletter -->
+
+                            <div class="widget__form-newsletter ">
+                                <p>
+
+                                    Don’t miss to subscribe to our news feeds, kindly fill the form below
+                                </p>
+                                <div class="mt-3">
+                                    <input type="text" class="form-control mb-2" placeholder="Your email address">
+
+                                    <button class="btn btn-primary btn-block text-capitalize" type="button">
+                                        subscribe
+
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END NEWSLETTER -->
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="bg__footer-bottom ">
+            <div class="container">
+                <div class="row flex-column-reverse flex-md-row">
+                    <div class="col-md-6">
+                        <span>
+                            © 2020 Rethouse Real Estate - Premium real estate & theme &amp; theme by
+                            <a href="#">retenvi.com</a>
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-inline ">
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    privacy
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    contact
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    about
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">
+                                    faq
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer  -->
+    <!-- END FOOTER -->
+    <!-- SCROLL TO TOP -->
+    <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
+    <!-- END SCROLL TO TOP -->
+    <script type="text/javascript" src="~/Scripts/index.bundle.js"></script>
+</body>
+
+</html>

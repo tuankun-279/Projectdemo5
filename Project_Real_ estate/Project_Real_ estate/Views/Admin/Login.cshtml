@@ -1,0 +1,76 @@
+﻿@model Project_Real__estate.Models.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/css/loginstyle.css" rel="stylesheet" />
+    <script type="text/javascript">
+        var nbDrop = 858;
+
+        function randRange(minNum, maxNum) {
+            return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
+        }
+
+        function createRain() {
+            for (i = 1; i < nbDrop; i++) {
+                var dropLeft = randRange(0, 1600);
+                var dropTop = randRange(-1000, 1400);
+
+                $('.rain').append('<div class="drop" id="drop' + i + '"></div>');
+                $('#drop' + i).css('left', dropLeft);
+                $('#drop' + i).css('top', dropTop);
+            }
+        }
+    </script>
+</head>
+
+<body onload="createRain();">
+    <section class="rain">
+        <div class="container">
+            <input type="checkbox" id="switch">
+            <label for="switch">
+                <b class="top"></b>
+                <b class="bottom"></b>
+            </label>
+            <div class="login">
+                <h1>Login</h1>
+                @using (Html.BeginForm(FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @if (ViewBag.Message != "")
+                        {
+                            <div class="text-danger">@ViewBag.Message</div>
+                        }
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName)
+                            @Html.TextBoxFor(m => m.UserName, "", new { @class = "input", @placeholder = "Username" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password)
+                            @Html.PasswordFor(m => m.Password, new { @class = "input", @placeholder = "Password" })
+                        </div>
+                        <div class="mt-4 mb-0">
+                            <div class="d-grid"><input type="submit" name="submit" class="input" value="Login" /></div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+
+        </div>
+
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</body>
+
+</html>

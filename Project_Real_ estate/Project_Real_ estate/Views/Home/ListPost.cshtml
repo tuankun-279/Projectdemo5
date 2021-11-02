@@ -1,0 +1,449 @@
+﻿@*@model IEnumerable<Project_Real__estate.Models.Advertisement>*@
+@model PagedList.IPagedList<Project_Real__estate.Models.Advertisement>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "List Post";
+    Layout = "~/Views/Shared/_LayoutSingle.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<section>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-4">
+                @using (Html.BeginForm("ListPost", "Home", FormMethod.Post))
+                {
+                    <!-- FORM FILTER -->
+                    <div class="products__filter mb-30">
+                        <div class="products__filter__group">
+                            <div class="products__filter__header">
+
+                                <h5 class="text-center text-capitalize">property filter</h5>
+                            </div>
+                            <div class="products__filter__body">
+                                <div class="form-group">
+                                    @Html.DropDownList("Status", null, "Property Status", new { @class = "wide select_option" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("Category", null, "Property Type", new { @class = "wide select_option" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("Area", null, "Area From", new { @class = "wide select_option" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("City", null, "City/Province", new { @class = "wide select_option" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("Bedroom", null, "Bedrooms", new { @class = "wide select_option" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownList("Bath", null, "Bathrooms", new { @class = "wide select_option" })
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-3">Price range</label>
+                                    <div class="filter__price">
+                                        <input class="price-range" type="text" name="my_range" value="" />
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="products__filter__footer">
+                                <div class="form-group mb-0">
+                                    <button class="btn btn-primary text-capitalize btn-block">
+                                        <i class="fa fa-search ml-1"></i> search
+                                        property
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END FORM FILTER -->
+                    <!-- ARCHIVE CATEGORY -->
+                    <div class=" wrapper__list__category">
+                        CATEGORY
+                        <div class="widget widget__archive">
+                            <div class="widget__title">
+                                <h5 class="text-dark mb-0 text-center">Categories Property</h5>
+                            </div>
+                            <ul class="list-unstyled">
+
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        abc
+                                        <span class="badge badge-primary"> </span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        villa
+                                        <span class="badge badge-primary">4</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        family house
+                                        <span class="badge badge-primary">2</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        modern villa
+                                        <span class="badge badge-primary">8</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        town house
+                                        <span class="badge badge-primary">10</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-capitalize">
+                                        office
+                                        <span class="badge badge-primary">12</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END CATEGORY -->
+                    </div>
+                    <!-- End ARCHIVE CATEGORY -->
+
+                }
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tabs__custom-v2">
+                            <!-- FILTER VERTICAL -->
+                            <ul class="nav nav-pills myTab" role="tablist">
+                                <li class="list-inline-item mr-auto">
+                                    <span class="title-text">Sort by</span>
+                                    <div class="btn-group">
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">
+                                            Based Properties
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            @Html.ActionLink("Low to High Price ", "ListPost", new
+                                            {
+                                                 sortOrder = ViewBag.LowSortParm,
+                                                 currentFilter = ViewBag.CurrentFilter,
+                                            }, new { @class = "dropdown-item" })
+
+
+                                            @Html.ActionLink("High to Low Price", "ListPost", new
+                                            {
+                                                 sortOrder = ViewBag.HighSortParm,
+                                                 currentFilter = ViewBag.CurrentFilter,
+                                            }, new { @class = "dropdown-item" })
+
+                                            @Html.ActionLink("Sell Properties", "ListPost", new
+                                            {
+                                                 sortOrder = ViewBag.SellSortParm,
+                                                 currentFilter = ViewBag.CurrentFilter,
+                                            }, new { @class = "dropdown-item" })
+
+                                            @Html.ActionLink("Rent Properties", "ListPost", new
+                                            {
+                                                 sortOrder = ViewBag.RentSortParm,
+                                                 currentFilter = ViewBag.CurrentFilter,
+                                            }, new { @class = "dropdown-item" })
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link pills-tab-one" data-toggle="pill" href="#pills-tab-one"
+                                       role="tab" aria-controls="pills-tab-one" aria-selected="true">
+                                        <span class="fa fa-th-list"></span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active pills-tab-two" data-toggle="pill"
+                                       href="#pills-tab-two" role="tab" aria-controls="pills-tab-two"
+                                       aria-selected="false">
+                                        <span class="fa fa-th-large"></span>
+                                    </a>
+                                </li>
+                            </ul>
+
+
+
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade" id="pills-tab-one" role="tabpanel"
+                                     aria-labelledby="pills-tab-one">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card__image card__box-v1">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-4 col-lg-3 col-xl-4">
+                                                            <div class="card__image__header h-250">
+                                                                <a href="@Url.Action("Details", "Home", new { id = item.adsId })">
+                                                                    <div class="ribbon text-capitalize">sold out</div>
+
+                                                                    @if (item.Images.FirstOrDefault() != null)
+                                                                    {
+                                                                        <img src="~/Images/@item.Images.First().FileName" alt=""
+                                                                             class="img-fluid w100 img-transition" width="80" height="60">
+                                                                    }
+
+                                                                    <div class="info"> for sale</div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4 col-lg-6 col-xl-5 my-auto">
+                                                            <div class="card__image__body">
+
+                                                                <span class="badge badge-primary text-capitalize mb-2">house</span>
+                                                                <h6>
+                                                                    <a href=" @Url.Action("Details", "Home", new { id = item.adsId })">@item.Tiltle</a>
+                                                                </h6>
+                                                                <div class="card__image__body-desc">
+                                                                    <!-- <p class="text-capitalize">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, alias!
+
+                                                </p> -->
+                                                                    <p class="text-capitalize">
+                                                                        <i class="fa fa-map-marker"></i>
+                                                                        @item.Street, @item.Ward, @item.District, @item.Cityprovince
+                                                                    </p>
+                                                                </div>
+
+                                                                <ul class="list-inline card__content">
+                                                                    <li class="list-inline-item">
+
+                                                                        <span>
+                                                                            floors <br>
+                                                                            <i class="fa fa-building"></i> @item.floors
+                                                                        </span>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <span>
+                                                                            beds <br>
+                                                                            <i class="fa fa-bed"></i> @item.Bedrooms
+                                                                        </span>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <span>
+                                                                            bath <br>
+                                                                            <i class="fa fa-bath"></i> @item.Toilets
+                                                                        </span>
+                                                                    </li>
+                                                                    <li class="list-inline-item">
+                                                                        <span>
+                                                                            area <br>
+                                                                            <i class="fa fa-map"></i> @item.Area m²
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-lg-3 col-xl-3 my-auto card__image__footer-first">
+                                                            <div class="card__image__footer">
+                                                                <figure>
+                                                                    <img src="https://cdn.imgbin.com/9/1/7/imgbin-small-business-company-office-corporation-office-icon-insharepics-building-zVZnhzF62vgbB3HtnjkUK9iV6.jpg" alt=""
+                                                                         class="img-fluid rounded-circle">
+                                                                </figure>
+                                                                <ul class="list-inline my-auto">
+                                                                    <li class="list-inline-item name">
+
+                                                                        @if (item.Agent != null)
+                                                                        {
+                                                                            <a href="@Url.Action("AgentDetails",new{ id = item.AgentId})">
+                                                                                @item.Agent.AgentName
+                                                                            </a>
+                                                                        }
+                                                                        else if (item.Seller != null)
+                                                                        {
+                                                                            <a href="@Url.Action("SellerDetails",new{ id = item.SellerId})">
+                                                                                @item.Seller.Name
+                                                                            </a>
+                                                                        }                                                                        
+                                                                    </li>
+                                                                </ul>
+                                                                <ul class="list-inline my-auto ml-auto price">
+                                                                    <li class="list-inline-item ">
+
+                                                                        <h6>@item.EstatePrice @item.CurrentSymbol</h6>
+                                                                    </li>
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="tab-pane fade show active" id="pills-tab-two" role="tabpanel"
+                                     aria-labelledby="pills-tab-two">
+                                    @{int j = 0;
+                                        var listPost = Model.ToList(); }
+                                    @*bat dau for tu day*@
+                                    @for (int i = 0; i < (listPost.Count() + 1) / 2; i++)
+                                    {
+                                        try
+                                        {
+                                            j = i;
+                                            <div class="row">
+                                                <div class="col-md-6 col-lg-6 mt-4">
+                                                    <!-- CARD IMAGE -->
+                                                    <a href="#">
+                                                        <div class="card__image-hover h-250">
+                                                            <div class="card__image-hover-overlay">
+                                                                <div class="listing-badges">
+                                                                    <span class="featured">
+                                                                        Featured
+                                                                    </span>
+                                                                    <span>
+                                                                        For @listPost[j * 2].StatusHouse
+                                                                    </span>
+                                                                </div>
+                                                                <div class="card__image-content">
+                                                                    <div class="card__image-content-desc">
+                                                                        <h6 style="color:darkgray">
+                                                                            @listPost[j * 2].Tiltle
+                                                                        </h6>
+                                                                        <p class="mb-0">@listPost[j * 2].EstatePrice</p>
+                                                                    </div>
+                                                                    <ul class="list-inline card__hidden-content">
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                floors <br>
+                                                                                <i class="fa fa-building"></i> @listPost[j * 2].floors
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                beds <br>
+                                                                                <i class="fa fa-bed"></i> @listPost[j * 2].Bedrooms
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                bath <br>
+                                                                                <i class="fa fa-bath"></i> @listPost[j * 2].Toilets
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                area <br>
+                                                                                <i class="fa fa-map"></i> @listPost[j * 2].Area m²
+                                                                            </span>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                                @if (listPost[j * 2].Images.FirstOrDefault() != null)
+                                                                {
+                                                                    <img src="~/Images/@listPost[j * 2].Images.First().FileName" alt=""
+                                                                         class="img-fluid w100 img-transition">
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 col-lg-6 mt-4">
+                                                    <!-- CARD IMAGE -->
+                                                    <a href="#">
+                                                        <div class="card__image-hover h-250">
+                                                            <div class="card__image-hover-overlay">
+                                                                <div class="listing-badges">
+                                                                    <span class="featured">
+                                                                        Featured
+                                                                    </span>
+                                                                    <span>
+                                                                        For @listPost[j * 2 + 1].StatusHouse
+                                                                    </span>
+                                                                </div>
+                                                                <div class="card__image-content">
+                                                                    <div class="card__image-content-desc">
+                                                                        <h6 style="color:darkgray">@listPost[j * 2 + 1].Tiltle</h6>
+                                                                        <p class="mb-0">@listPost[j * 2 + 1].EstatePrice </p>
+                                                                    </div>
+                                                                    <ul class="list-inline card__hidden-content">
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                floors <br>
+                                                                                <i class="fa fa-building"></i> @listPost[j * 2 + 1].floors
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                beds <br>
+                                                                                <i class="fa fa-bed"></i> @listPost[j * 2 + 1].Bedrooms
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                bath <br>
+                                                                                <i class="fa fa-bath"></i> @listPost[j * 2 + 1].Toilets
+                                                                            </span>
+                                                                        </li>
+                                                                        <li class="list-inline-item">
+                                                                            <span>
+                                                                                area <br>
+                                                                                <i class="fa fa-map"></i> @Model.ToList()[j * 2 + 1].Area m²
+                                                                            </span>
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                                @if (listPost[j * 2 + 1].Images.FirstOrDefault() != null)
+                                                                {
+                                                                    <img src="~/Images/@listPost[j * 2 + 1].Images.First().FileName" alt=""
+                                                                         class="img-fluid w100 img-transition">
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                        catch (Exception e)
+                                        {
+
+                                        }
+                                    }
+
+                                    <div class="cleafix"></div>
+
+                                </div>
+                            </div>
+
+                            <!-- END FILTER VERTICAL -->
+                        </div>
+                        <div>
+                            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                            @Html.PagedListPager(Model, page => Url.Action("ListPost",
+                                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
