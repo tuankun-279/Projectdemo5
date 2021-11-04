@@ -55,34 +55,40 @@
                                     Activate
                                 </th>
                                 <th></th>
+                                <th></th>
+                                <th></th>
                             </tr>
 
                             @foreach (var item in Model)
                             {
 
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Phone)
-                                    </td>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.UserName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.isActivate)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.SellerId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.SellerId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.SellerId })
-                                    </td>
-                                </tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.isActivate)
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-info icon-edit bigger-10" href="@Url.Action("Edit","Sellers",new { id = item.SellerId})"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-warning icon-question-sign bigger-10" href="@Url.Action("Details","Sellers",new { id = item.SellerId})"><i class="fas fa-info-square"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-danger icon-remove bigger-10" href="@Url.Action("Delete","Sellers",new { id = item.SellerId})"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
 
 
                             }

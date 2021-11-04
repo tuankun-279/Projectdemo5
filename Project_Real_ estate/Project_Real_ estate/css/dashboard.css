@@ -1,0 +1,226 @@
+﻿body,
+body[data-theme="light"] {
+    --primaryColor: #f8f8ff;
+    --secondaryColor: #343837;
+    --cardColor: #fff;
+}
+
+    body[data-theme="dark"] {
+        --primaryColor: #343837;
+        --secondaryColor: #f3ece7;
+        --cardColor: #3c4142;
+    }
+
+body,
+button {
+    background-color: var(--primaryColor);
+}
+
+p,
+button {
+    color: var(--secondaryColor);
+}
+
+
+;
+
+
+body {
+    background-color: var(--thirdColor);
+    color: #fffffd;
+}
+
+h1,
+p {
+    padding: 0;
+    margin: 0;
+    color: var(--secondaryColor);
+    font-family: Jersey M54;
+}
+
+.container {
+    padding: 1.5em;
+    max-width: 1400px;
+    margin: auto;
+}
+
+.grid {
+    display: inline-block;
+    width: 100%;
+}
+
+.col {
+    width: 25%;
+    float: left;
+}
+.col>.card > a{
+    width:35%;
+}
+
+.card-container {
+    padding: 0 1em 1.5em 1em;
+}
+
+body .card {
+    background-color: var(--cardColor);
+    text-align: center;
+    padding: 0 0 1em 0;
+    border-radius: 0.3em;
+}
+
+.card > a > h1 {
+    font-size: 4em;
+}
+
+.card>a{
+    text-decoration:none;
+}
+
+.card > .data-type {
+    letter-spacing: 4px;
+    margin-left: 8px;
+}
+.card > .small-text > small > b {
+    color: #9580FF;
+}
+
+.text-sucess {
+    color: green;
+}
+
+.text-danger {
+    color: red;
+}
+
+.card > .data-today {
+    margin: 2em 0 1em 0;
+}
+
+.border {
+    background-color: #4267B2;
+    height: 0.4em;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    margin-bottom: 1em;
+}
+
+#b-card-facebook > .border {
+    background-color: #4F86F7;
+}
+
+#b-card-facebook > p > i {
+    color: #4267B2;
+}
+
+#b-card-twitter > .border {
+    background-color: #50BFE6;
+}
+
+#b-card-twitter > p > i {
+    color: #1ba2f4;
+}
+
+#b-card-instagram > .border {
+    background-color: #FD5B78;
+}
+
+#b-card-instagram > p > i {
+    background: linear-gradient(to right, #fac06c, #db4e93);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#b-card-pinterest > .border {
+    background-color: #ED0A3F;
+}
+
+#b-card-pinterest > p > i {
+    color: #da4e5b;
+}
+
+.social-icon {
+    font-size: 3em;
+}
+
+.social-username {
+    letter-spacing: 0.5px;
+    padding: 1em 0;
+}
+
+    .social-username > i {
+        vertical-align: middle;
+        letter-spacing: 7px;
+    }
+
+@media (max-width: 1100px) {
+    .col {
+        width: 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .col {
+        width: 100%;
+    }
+}
+
+.light-blue {
+    color: #8a81bd;
+}
+
+#first-header {
+    padding: 1.5em 0 3em 1.5em;
+}
+
+#hook {
+    padding: 0 0 1em 1.5em;
+}
+
+.small-card {
+    text-align: left;
+    position: relative;
+    height: 120px;
+}
+
+.small-text {
+    top: 1.5em;
+    left: 1.5em;
+    position: absolute;
+    font-size:1em;
+}
+
+.small-logo {
+    top: 1em;
+    right: 1.5em;
+    position: absolute;
+}
+
+@font-face {
+    font-family: Jersey M54;
+    src: url('JerseyM54-aLX9.ttf')
+}
+
+.small-number {
+    bottom: 0.05em;
+    left: 0.3em;
+    position: absolute;
+    font-family: Jersey M54;
+}
+
+.small-percent {
+    bottom: 0.8em;
+    right: 1.5em;
+    position: absolute;
+}
+
+
+button {
+    font-family: 'Electrolize', sans-serif;
+    padding: 0.5em;
+    margin-top: 0.8em;
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 5px;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}

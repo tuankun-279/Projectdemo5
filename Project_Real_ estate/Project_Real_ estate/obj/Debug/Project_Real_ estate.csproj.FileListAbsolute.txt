@@ -84,4 +84,5 @@ D:\Project_Real_ estate\Project_Real_ estate\bin\PagedList.dll
 D:\Project_Real_ estate\Project_Real_ estate\bin\PagedList.Mvc.dll
 D:\Project_Real_ estate\Project_Real_ estate\bin\PagedList.xml
 D:\Project_Real_ estate\Project_Real_ estate\bin\PagedList.Mvc.xml
+D:\Project_Real_ estate\Project_Real_ estate\bin\Mirosoft.Utilities.Mvc.dll
 D:\Project_Real_ estate\Project_Real_ estate\obj\Debug\Project_Real_ estate.csproj.AssemblyReference.cache

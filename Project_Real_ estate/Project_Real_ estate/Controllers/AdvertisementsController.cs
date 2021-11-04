@@ -374,5 +374,49 @@ namespace Project_Real__estate.Controllers
             }
             base.Dispose(disposing);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NotActivate(Advertisement advertisement)
+        {
+            int t = Convert.ToInt32(Request.Form["id"]);
+            var data = new Advertisement();
+            data = (db.Advertisements.Where(a => a.adsId == t)).FirstOrDefault();
+            if (advertisement != null)
+            {
+                advertisement.adsId = data.adsId;
+                advertisement.AgentId = data.AgentId;
+                advertisement.Tiltle = data.Tiltle;
+                advertisement.ReleaseDate = data.ReleaseDate;
+                advertisement.ExpirationDate = data.ExpirationDate;
+                advertisement.SellerId = data.SellerId;
+                advertisement.CategoryId = data.CategoryId;
+                advertisement.Describe = data.Describe;
+                advertisement.CurrentSymbol = data.CurrentSymbol;
+                advertisement.priceOfAds = data.priceOfAds;
+                advertisement.EstatePrice = data.EstatePrice;
+                advertisement.Facade = data.Facade;
+                advertisement.Gateway = data.Gateway;
+                advertisement.floors = data.floors;
+                advertisement.Bedrooms = data.Bedrooms;
+                advertisement.Toilets = data.Toilets;
+                advertisement.furniture = data.furniture;
+                advertisement.Area = data.Area;
+                advertisement.Cityprovince = data.Cityprovince;
+                advertisement.Ward = data.Ward;
+                advertisement.District = data.District;
+                advertisement.StatusHouse = data.StatusHouse;
+                advertisement.Street = data.Street;
+                advertisement.PaymentId = data.PaymentId;
+                advertisement.isActivate = true;
+                advertisement.UserId = Convert.ToInt32(Session["UserId"]);
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(advertisement);
+                db.SaveChanges();
+                return RedirectToAction("Activate");
+            }
+
+            var advertisements = db.Advertisements.Include(a => a.Agent).Include(a => a.Category).Include(a => a.Payment).Include(a => a.Seller).Include(a => a.User);
+            return View(advertisements.ToList());
+        }
     }
 }

@@ -11,7 +11,7 @@
     <meta name="description" content="Rethouse - Real Estate HTML Template">
     <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
     <meta name="author" content="mardianto - retenvi.com">
-    <title>Rethouse - Real Estate HTML Template</title>
+    <title>Dream House</title>
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -35,44 +35,94 @@
     <!-- HEADER -->
     <header class="jumbotron bg-theme-v5">
         <div class="topbar d-none d-sm-block">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="topbar-left">
-                            <div class="topbar-text">
-                               @DateTime.Now 
+            @if (Session["AgentId"] == null && Session["SellerId"] == null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+                                    <li><a href="@Url.Action("Login", "RegisterLoginView")" title="">Login</a></li>
+                                    <li><a href="@Url.Action("Register", "RegisterLoginView")" title="">Register</a></li>
+                                </ul>
+                                <ul class="topbar-sosmed">
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="list-unstyled topbar-right">
-                            <ul class="topbar-link">
-                                <li><a href="#" title="">Career</a></li>
-                                <li><a href="#" title="">Contact Us</a></li>
-                                <li><a href="@Url.Action("Login","RegisterLoginView")" title="">Login / Register</a></li>
-                            </ul>
-                            <ul class="topbar-sosmed">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                            </ul>
+                </div>
+            }
+            else if (Session["AgentId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="@Url.Action("AgentEdit", "Home", new {id = Convert.ToInt32(Session["AgentId"]) })" title="">@Session["AgentName"]</a></li>
+                                    <li><a href="@Url.Action("Logout", "Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            else if (Session["SellerId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="@Url.Action("SellerEdit", "Home", new {id = Convert.ToInt32(Session["SellerId"]) })" title="">@Session["Name"]</a></li>
+                                    <li><a href="@Url.Action("Logout", "Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft navbar-transparent">
             <div class="container">
                 <a class="navbar-brand" href="@Url.Action("Index","Home")">
-                    <img src="~/Images/logo-blue.png" alt="">
-                    <img src="~/Images/logo-blue-stiky.png" alt="">
+                    <img src="~/Images/logo.png" alt="">
+                    <img src="~/Images/logo.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
                     <span class="navbar-toggler-icon"></span>
@@ -80,19 +130,23 @@
                 <div class="collapse navbar-collapse" id="main_nav99">
                     <ul class="navbar-nav mx-auto ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link active " href="@Url.Action("Index","Home")" > Home </a>
-                            
+                            <a class="nav-link active " href="@Url.Action("Index","Home")"> Home </a>
+
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"> Pages </a>
-                            <ul class="dropdown-menu dropdown-menu-left animate fade-up">
+                            <a class="nav-link dropdown-toggle" href="@Url.Action("ListPost","Home")" data-toggle="dropdown"> Pages </a>
+                            @*<ul class="dropdown-menu dropdown-menu-left animate fade-up">
                                 <li>
                                     <a class="dropdown-item" href="@Url.Action("IndexRentSearch","Home")"> Rent </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="@Url.Action("IndexBuySearch","Home")"> Buy </a>
+                                    @using (Html.BeginForm("ListPost", "Home", FormMethod.Post))
+                                    {
+                                        <input type="hidden" value="Sale" name="status" id="status" />
+                                        <a class="dropdown-item" href="@Url.Action("ListPost", "Home",new {status = "" })" > Buy </a>
+                                    }
                                 </li>
-                            </ul>
+                            </ul>*@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-toggle="dropdown"> Agency </a>
@@ -180,8 +234,10 @@
                                         <div class="tab-content" id="pills-tabContent">
                                             <div class="tab-pane fade active show" id="buy" role="tabpanel" aria-labelledby="buy-tab">
                                                 <div class=" search__container">
-                                                    @using (Html.BeginForm("IndexBuySearch", "Home", FormMethod.Post))
-                                                    {
+                                                    @using (Html.BeginForm("ListPost", "Home", FormMethod.Post))
+                                                    { 
+                                                        <input type="hidden" value="Sale" name="status" id="status" />
+                                                        @*@Html.TextBox("Category")*@
                                                         <div class="row input-group no-gutters">
                                                             <div class="col-lg-2">
                                                                 @Html.DropDownList("Category", null, "Property Type", new { @class = "select_option form-control" })
@@ -209,8 +265,9 @@
                                             </div>
                                             <div class="tab-pane fade" id="rent" role="tabpanel" aria-labelledby="rent-tab">
                                                 <div class=" search__container">
-                                                    @using (Html.BeginForm("IndexRentSearch", "Home", FormMethod.Post))
+                                                    @using (Html.BeginForm("ListPost", "Home", FormMethod.Post))
                                                     {
+                                                    <input type="hidden" value="Rent" name="status" id="status" />
                                                         <div class="row input-group no-gutters">
                                                             <div class="col-lg-2">
                                                                 @Html.DropDownList("Category", null, "Property Type", new { @class = "select_option form-control" })
@@ -252,7 +309,7 @@
     <div>
         @RenderBody()
     </div>
-    
+
     <!-- FOOTER -->
     <!-- Footer  -->
     <footer>
@@ -380,8 +437,7 @@
                 <div class="row flex-column-reverse flex-md-row">
                     <div class="col-md-6">
                         <span>
-                            © 2020 Rethouse Real Estate - Premium real estate & theme &amp; theme by
-                            <a href="#">retenvi.com</a>
+                            Dream House Real Portal @DateTime.Now.ToShortDateString()
                         </span>
                     </div>
                     <div class="col-md-6">

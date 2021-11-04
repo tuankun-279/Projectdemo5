@@ -4,13 +4,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using Project_Real__estate.Models;
 
 namespace Project_Real__estate.Controllers
 {
-    public class ReportsController : Controller
+    public class ReportsController : BaseController
     {
         private projectEntities1 db = new projectEntities1();
 
@@ -135,6 +136,68 @@ namespace Project_Real__estate.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult SendEmail(int? id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            Report report = db.Reports.Find(id);
+            if (report == null)
+            {
+                return HttpNotFound();
+            }
+            return View(report);
+        }
+        [HttpPost]
+        public ActionResult SendEmail(int id, string subject, string message)
+        {
+            try
+            {
+                string receiver = "";
+                if (ModelState.IsValid)
+                {
+                    Report find = db.Reports.Find(id);
+                    if (find.SellerId != null)
+                    {
+                        receiver = find.Seller.Email;
+                    }
+                    else if (find.AgentId != null)
+                    {
+                        receiver = find.Agent.Email;
+                    }
+                    var senderEmail = new MailAddress("nguyenhuytuan04@gmail.com", "Dream House Estate");
+                    var receiverEmail = new MailAddress(receiver, "Receiver");
+                    var password = "Tuankun.1301";
+                    var sub = subject;
+                    var body = message;
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = subject,
+                        Body = "Cảnh báo bài viết \""+find.Advertisement.Tiltle+"\" của tài khoản "+receiver+" sắp hết hạn bài đăng. \nBạn có muốn gia hạn cho bài đăng không?\n"+body
+                    })
+                    {
+                        smtp.Send(mess);
+                        ViewBag.Mes = "Gửi thành công";
+                    }
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Mes = "Không thể gửi ";
+            }
+            return View();
         }
     }
 }

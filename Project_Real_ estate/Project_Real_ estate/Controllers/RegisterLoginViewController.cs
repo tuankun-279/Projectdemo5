@@ -17,7 +17,7 @@ namespace Project_Real__estate.Controllers
         public ActionResult Register(AgentSellerView rv)
         {
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
+            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName");
             return View(new AgentSellerView { Agent = new Agent(), Seller = new Seller() });
         }
 
@@ -28,13 +28,14 @@ namespace Project_Real__estate.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var check = db.Agents.FirstOrDefault(a => a.Email == rv.Agent.Email);
                 if (check == null)
                 {
                     rv.Agent.Password = GetMD5(rv.Agent.Password);
                     rv.Agent.ConfirmPassword = GetMD5(rv.Agent.ConfirmPassword);
                     rv.Agent.isActivate = false;
-                    db.Configuration.ValidateOnSaveEnabled = false;
+                    //db.Configuration.ValidateOnSaveEnabled = false;
                     db.Agents.Add(rv.Agent);
                     db.SaveChanges();
                     return RedirectToAction("Login", "RegisterLoginView");
@@ -46,14 +47,14 @@ namespace Project_Real__estate.Controllers
                 }
             }
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName", rv.Agent.UserId);
-            ViewBag.PaymentId = new SelectList(db.Payments, "PaymentId", "PaymentName", rv.Agent.paymentId);
+            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName", rv.Agent.paymentId);
             return View("Register", rv);
         }
         public ActionResult RegisterSeller(AgentSellerView rv)
         {
             if (ModelState.IsValid)
             {
-
+                //ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
                 var check = db.Sellers.FirstOrDefault(s => s.Email == rv.Seller.Email);
                 if (check == null)
                 {
@@ -61,7 +62,7 @@ namespace Project_Real__estate.Controllers
                     rv.Seller.ConfirmPassword = GetMD5(rv.Seller.ConfirmPassword);
                     rv.Seller.isActivate = false;
                     //db.Sellers.Add(rv.Seller);
-                    db.Configuration.ValidateOnSaveEnabled = false;
+                    //db.Configuration.ValidateOnSaveEnabled = false;
                     db.Sellers.Add(rv.Seller);
                     db.SaveChanges();
                     return RedirectToAction("Login", "RegisterLoginView");
@@ -73,7 +74,7 @@ namespace Project_Real__estate.Controllers
                 }
             }
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
+            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName");
             return View("Register", rv);
         }
         public static string GetMD5(string str)

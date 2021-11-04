@@ -109,7 +109,25 @@ namespace Project_Real__estate.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Payment payment = db.Payments.Find(id);
+            
+
+            Payment payment = db.Payments.FirstOrDefault(t => t.PaymentId == id);
+            foreach (var item in payment.Advertisements.ToList())
+            {
+                foreach (var image in item.Images.ToList())
+                {
+                    db.Images.Remove(image);
+                }
+                foreach (var rep in item.Reports.ToList())
+                {
+                    db.Reports.Remove(rep);
+                }
+                db.Advertisements.Remove(item);
+            }
+            foreach(var item in payment.Agents.ToList())
+            {
+                db.Agents.Remove(item);
+            }
             db.Payments.Remove(payment);
             db.SaveChanges();
             return RedirectToAction("Index");

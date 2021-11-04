@@ -350,6 +350,10 @@ namespace Project_Real__estate.Controllers
                 {
                     db.Images.Remove(image);
                 }
+                foreach (var rep in item.Reports.ToList())
+                {
+                    db.Reports.Remove(rep);
+                }
                 db.Advertisements.Remove(item);
             }
             db.Agents.Remove(agent);
@@ -448,6 +452,37 @@ namespace Project_Real__estate.Controllers
 
             }
             return byte2String;
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NotActivate(Agent agent)
+        {
+
+            int t = Convert.ToInt32(Request.Form["id"]);
+            var data = new Agent();
+            data = (db.Agents.Where(a => a.AgentId == t)).FirstOrDefault();
+            if (agent != null)
+            {
+                agent.AgentId = data.AgentId;
+                agent.AgentName = data.AgentName;
+                agent.Email = data.Email;
+                agent.Address = data.Address;
+                agent.Phone = data.Phone;
+                agent.Introduction = data.Introduction;
+                agent.Password = data.Password;
+                agent.ConfirmPassword = agent.Password;
+                agent.EmailHide = data.EmailHide;
+                agent.paymentId = data.paymentId;
+                agent.isActivate = true;
+                agent.UserId = Convert.ToInt32(Session["UserId"]);
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.Entry(data).CurrentValues.SetValues(agent);
+                db.SaveChanges();
+                return RedirectToAction("Activate");
+            }
+
+            var agents = db.Agents.Include(a => a.User).Include(a => a.Payment).Where(a => a.isActivate == false);
+            return View(agents.ToList());
         }
     }
 }

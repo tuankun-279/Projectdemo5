@@ -9,7 +9,7 @@
     <meta name="description" content="Rethouse - Real Estate HTML Template">
     <meta name="keywords" content="Real Estate, Property, Directory Listing, Marketing, Agency" />
     <meta name="author" content="mardianto - retenvi.com">
-    <title>Rethouse - Real Estate HTML Template</title>
+    <title>Dream House</title>
 
     <!-- Facebook and Twitter integration -->
     <meta property="og:title" content="" />
@@ -34,44 +34,94 @@
     <header>
         <!-- NAVBAR TOP -->
         <div class="topbar d-none d-sm-block">
-            <div class="container ">
-                <div class="row">
-                    <div class="col-sm-12 col-md-5">
-                        <div class="topbar-left">
-                            <div class="topbar-text">
-                                Monday, March 22, 2020
+            @if (Session["AgentId"] == null && Session["SellerId"] == null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="#" title="">Career</a></li>
+                                    <li><a href="#" title="">Contact Us</a></li>
+                                    <li><a href="@Url.Action("Login", "RegisterLoginView")" title="">Login</a></li>
+                                    <li><a href="@Url.Action("Register", "RegisterLoginView")" title="">Register</a></li>
+                                </ul>
+                                <ul class="topbar-sosmed">
+                                    <li>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-instagram"></i></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-7">
-                        <div class="list-unstyled topbar-right">
-                            <ul class="topbar-link">
-                                <li><a href="#" title="">Career</a></li>
-                                <li><a href="#" title="">Contact Us</a></li>
-                                <li><a href="@Url.Action("Login","RegisterLoginView")" title="">Login / Register</a></li>
-                            </ul>
-                            <ul class="topbar-sosmed">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                            </ul>
+                </div>
+            }
+            else if (Session["AgentId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="@Url.Action("AgentEdit", "Home", new {id = Convert.ToInt32(Session["AgentId"]) })" title="">@Session["AgentName"]</a></li>
+                                    <li><a href="@Url.Action("Logout", "Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+            else if (Session["SellerId"] != null)
+            {
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <div class="topbar-left">
+                                <div class="topbar-text">
+                                    @DateTime.Now
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="list-unstyled topbar-right">
+                                <ul class="topbar-link">
+                                    <li><a href="@Url.Action("SellerEdit", "Home", new {id = Convert.ToInt32(Session["SellerId"]) })" title="">@Session["Name"]</a></li>
+                                    <li><a href="@Url.Action("Logout", "Home")" title="">Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
         <!-- END NAVBAR TOP -->
         <!-- NAVBAR -->
         <nav class="navbar navbar-hover navbar-expand-lg navbar-soft">
             <div class="container">
                 <a class="navbar-brand" href="@Url.Action("Index","Home")">
-                    <img src="~/Images/logo-blue-stiky.png" alt="" class="img-fluid">
+                    <img src="~/Images/logo.png" alt="" class="img-fluid">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav99">
                     <span class="navbar-toggler-icon"></span>
@@ -351,8 +401,7 @@
                 <div class="row flex-column-reverse flex-md-row">
                     <div class="col-md-6">
                         <span>
-                            © 2020 Rethouse Real Estate - Premium real estate & theme &amp; theme by
-                            <a href="#">retenvi.com</a>
+                            Dream House Real Portal @DateTime.Now.ToShortDateString()
                         </span>
                     </div>
                     <div class="col-md-6">

@@ -64,27 +64,41 @@
                             {
 
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Email)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Phone)
-                                    </td>
+                                    @using (Html.BeginForm("NotActivate", "Sellers", FormMethod.Post))
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
 
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.UserName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.isActivate)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.SellerId }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.SellerId }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.SellerId })
-                                    </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Phone)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.UserName)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.isActivate)
+                                        </td>
+
+                                        <td>
+
+                                            @Html.AntiForgeryToken()
+                                            @Html.DisplayFor(modeItem => item.isActivate)
+                                            <input type="hidden" value="@item.SellerId" name="id" />
+                                        </td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs action-buttons">
+                                                <div class="blue">
+                                                    <input type="submit" value="Activate" class="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    }
                                 </tr>
 
 
@@ -100,7 +114,6 @@
                         <script type="text/javascript">
                             $(function () {
                                 $("#pageSize").change(function () {
-
                                     $("#form1").submit();
                                 });
                             });
@@ -121,4 +134,3 @@
 
     </div>
 </section>
-

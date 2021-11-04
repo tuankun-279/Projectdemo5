@@ -193,7 +193,7 @@
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4 col-lg-3 col-xl-4">
                                                             <div class="card__image__header h-250">
-                                                                <a href="@Url.Action("Details", "Home", new { id = item.adsId })">
+                                                                <a href="@Url.Action("Details",  new { id = item.adsId })">
                                                                     <div class="ribbon text-capitalize">sold out</div>
 
                                                                     @if (item.Images.FirstOrDefault() != null)
@@ -308,7 +308,7 @@
                                             <div class="row">
                                                 <div class="col-md-6 col-lg-6 mt-4">
                                                     <!-- CARD IMAGE -->
-                                                    <a href="#">
+                                                    <a href="@Url.Action("Details","Home", new { id = listPost[j * 2 ].adsId})">
                                                         <div class="card__image-hover h-250">
                                                             <div class="card__image-hover-overlay">
                                                                 <div class="listing-badges">
@@ -324,7 +324,7 @@
                                                                         <h6 style="color:darkgray">
                                                                             @listPost[j * 2].Tiltle
                                                                         </h6>
-                                                                        <p class="mb-0">@listPost[j * 2].EstatePrice</p>
+                                                                        <p class="mb-0">@listPost[j * 2].EstatePrice ($)</p>
                                                                     </div>
                                                                     <ul class="list-inline card__hidden-content">
                                                                         <li class="list-inline-item">
@@ -365,7 +365,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-lg-6 mt-4">
                                                     <!-- CARD IMAGE -->
-                                                    <a href="#">
+                                                    <a href="@Url.Action("Details","Home", new { id = listPost[j * 2 + 1].adsId})">
                                                         <div class="card__image-hover h-250">
                                                             <div class="card__image-hover-overlay">
                                                                 <div class="listing-badges">
@@ -433,7 +433,8 @@
 
                             <!-- END FILTER VERTICAL -->
                         </div>
-                        <div>
+                        <br>
+                        <div >
                             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                             @Html.PagedListPager(Model, page => Url.Action("ListPost",

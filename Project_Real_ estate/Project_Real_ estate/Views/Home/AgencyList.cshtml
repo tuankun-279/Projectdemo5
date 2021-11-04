@@ -13,27 +13,27 @@
                 <div class="products__filter mb-30">
                     @using (Html.BeginForm("AgencyList", "Home"))
                     {
-                    <div class="products__filter__group">
-                        <div class="products__filter__header">
+                        <div class="products__filter__group">
+                            <div class="products__filter__header">
 
-                            <h5 class="text-center text-capitalize">find agents</h5>
-                        </div>
-                        <div class="products__filter__body">
-                            <div class="form-group">
-                                <label>Enter Agent name</label>
-                                <input type="text" class="form-control" placeholder="Enter agent name" name="Search ">
-                                @*@Html.TextBox("Search", null, new { htmlAttribute = new { @class = "form-control", @placeholder = "Enter agent name" } })*@
+                                <h5 class="text-center text-capitalize">find agents</h5>
+                            </div>
+                            <div class="products__filter__body">
+                                <div class="form-group">
+                                    <label>Enter Agent name</label>
+                                    @*<input type="text" class="form-control" placeholder="enter agent name" name="Search "id="Search ">*@
+                                    @Html.TextBox("Search", null, new { htmlAttribute = new { @class = "form-control", @placeholder = "Enter agent name" } })
+                                </div>
+                            </div>
+                            <div class="products__filter__footer">
+                                <div class="form-group mb-0">
+                                    <button class="btn btn-primary text-capitalize btn-block">
+                                        search agents <i class="fa fa-search ml-1"></i>
+                                    </button>
+
+                                </div>
                             </div>
                         </div>
-                        <div class="products__filter__footer">
-                            <div class="form-group mb-0">
-                                <button class="btn btn-primary text-capitalize btn-block">
-                                    search agents <i class="fa fa-search ml-1"></i>
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
                     }
                 </div>
                 <!-- END FORM FILTER -->
@@ -126,7 +126,7 @@
                                                     </span>
                                                     @if (item.EmailHide != true)
                                                     {
-                                                <span>@item.Email</span>
+                                                        <span>@item.Email</span>
                                                     }
                                                     else
                                                     { <span>N/A</span>}
@@ -160,7 +160,7 @@
 
                         }
                     </div>
-                    </div>
+                </div>
 
             </div>
         </div>

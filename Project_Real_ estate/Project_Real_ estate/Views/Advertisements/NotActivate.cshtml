@@ -72,36 +72,43 @@
 
                             @foreach (var item in Model)
                             {
-                                if (item.isActivate == false)
+                                using (Html.BeginForm("NotActivate", "Advertisements", FormMethod.Post))
                                 {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Tiltle)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ReleaseDate)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ExpirationDate)
-                                        </td>
+                                    if (item.isActivate == false)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Tiltle)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReleaseDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ExpirationDate)
+                                            </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.priceOfAds)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CurrentSymbol)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.isActivate)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.adsId }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.adsId }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.adsId })
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.priceOfAds)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CurrentSymbol)
+                                            </td>
+                                            <td>
+
+                                                @Html.AntiForgeryToken()
+                                                @Html.DisplayFor(modeItem => item.isActivate)
+                                                <input type="hidden" value="@item.adsId" name="id" />
+                                            </td>
+                                            <td>
+                                                <div class="hidden-sm hidden-xs action-buttons">
+                                                    <div class="blue">
+                                                        <input type="submit" value="Activate" class="btn btn-danger" />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
-
                             }
 
                         </table>

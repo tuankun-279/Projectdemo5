@@ -8,6 +8,8 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Net.Mail;
+using System.Net;
 
 namespace Project_Real__estate.Controllers
 {
@@ -15,82 +17,25 @@ namespace Project_Real__estate.Controllers
     {
         private projectEntities1 db = new projectEntities1();
         // GET: Admin
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? pageSize, int? page)
+        public ActionResult Index()
         {
             if (Session["UserId"] != null)
-            {
-                ViewBag.CurrentSort = sortOrder;
-                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-                ViewBag.AgentSortParm = sortOrder == "Agent" ? "Agent_desc" : "Agent";
-                ViewBag.SellerSortParm = sortOrder == "Seller" ? "Seller_desc" : "Seller";
-
+            {               
                 ViewBag.AdsCount = db.Advertisements.Count();
                 ViewBag.AgentCount = db.Agents.Count();
                 ViewBag.SellerCount = db.Sellers.Count();
+                ViewBag.ReportCount = db.Reports.Count();
+                //Activate
+                ViewBag.AdsActivateCount = db.Advertisements.Where(a=>a.isActivate == true).Count();
+                ViewBag.AgentActivateCount = db.Agents.Where(a => a.isActivate == true).Count();
+                ViewBag.SellerActivateCount = db.Sellers.Where(a => a.isActivate == true).Count();
+                //not activate
+                ViewBag.AdsNotActivateCount = db.Advertisements.Where(a => a.isActivate == false).Count();
+                ViewBag.AgentNotActivateCount = db.Agents.Where(a => a.isActivate == false).Count();
+                ViewBag.SellerNotActivateCount = db.Sellers.Where(a => a.isActivate == false).Count();
 
 
-                if (searchString != null)
-                {
-                    page = 1;
-                }
-                else
-                {
-                    searchString = currentFilter;
-                }
-
-                ViewBag.CurrentFilter = searchString;
-                //
-
-                //var agents = from s in db.agents join
-                //             g in db.Genres on
-                //             s.GenreId equals g.GenreId
-                //               select s;
-                var agents = db.Reports.Include(a => a.Agent).Include(a => a.Advertisement).Include(a => a.Seller);
-                if (!String.IsNullOrEmpty(searchString))
-                {
-                    agents = agents.Where(s => s.Advertisement.Tiltle.Contains(searchString));
-                }
-                switch (sortOrder)
-                {
-                    case "name_desc":
-                        agents = agents.OrderByDescending(s => s.Advertisement.Tiltle);
-                        break;
-                    case "Seller":
-                        agents = agents.OrderBy(s => s.Seller.Name);
-                        break;
-                    case "Seller_desc":
-                        agents = agents.OrderByDescending(s => s.Seller.Name);
-                        break;
-                    case "Agent":
-                        agents = agents.OrderBy(s => s.Agent.AgentName);
-                        break;
-                    case "Agent_desc":
-                        agents = agents.OrderByDescending(s => s.Agent.AgentName);
-                        break;
-                    default:  // Name ascending 
-                        agents = agents.OrderBy(s => s.Advertisement.Tiltle);
-                        break;
-                }
-
-
-                
-
-
-                int pageIndex = 1;
-                pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-                int defaSize = (pageSize ?? 5);
-                ViewBag.psize = defaSize;
-                int i = 0;
-                i++;
-                ViewBag.PageSize = new List<SelectListItem>()
-                {
-                new SelectListItem() { Value="5", Text= "5" },
-                new SelectListItem() { Value="10", Text= "10" },
-                new SelectListItem() { Value="15", Text= "15" },
-                new SelectListItem() { Value="25", Text= "25" },
-                new SelectListItem() { Value="50", Text= "50" },
-                };
-                return View(agents.ToPagedList(pageIndex, defaSize));
+                return View();
                 
             }
             else
@@ -148,6 +93,7 @@ namespace Project_Real__estate.Controllers
             Session.Clear();
             return RedirectToAction("Login");
         }
+        
 
     }
 }

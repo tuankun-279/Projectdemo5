@@ -35,28 +35,36 @@
 
                             @foreach (var item in Model)
                             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReportDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Advertisement.Tiltle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Agent.AgentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Seller.Name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ReportId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ReportId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ReportId })
-                    </td>
-                </tr>}
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReportDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Advertisement.Tiltle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Agent.AgentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Seller.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-info icon-edit bigger-10" href="@Url.Action("Edit","Reports",new { id = item.ReportId})"><i class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-warning icon-question-sign bigger-10" href="@Url.Action("Details","Reports",new { id = item.ReportId})"><i class="fas fa-info-square"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-danger icon-remove bigger-10" href="@Url.Action("Delete","Reports",new { id = item.ReportId})"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-mini btn-outline-primary icon-remove bigger-10" href="@Url.Action("SendEmail","Reports",new { id = item.ReportId})"><i class="fas fa-paper-plane"></i></a>
+                            </td>
+                        </tr>}
+
 
                         </table>
                     </div>
