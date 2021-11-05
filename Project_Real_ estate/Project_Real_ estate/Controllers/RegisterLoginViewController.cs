@@ -13,12 +13,13 @@ namespace Project_Real__estate.Controllers
     {
         private projectEntities1 db = new projectEntities1();
         // GET: RegisterView
-        
+
         public ActionResult Register(AgentSellerView rv)
         {
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName");
-            return View(new AgentSellerView { Agent = new Agent(), Seller = new Seller() });
+            var paymentList = db.Payments.ToList();
+            ViewBag.paymentId = new SelectList(paymentList, "PaymentId", "PaymentName");
+            return View(new AgentSellerView { Agent = new Agent(), Seller = new Seller(), Payment = new Payment(), User = new User() });
         }
 
         //POST: Register
@@ -28,14 +29,17 @@ namespace Project_Real__estate.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var check = db.Agents.FirstOrDefault(a => a.Email == rv.Agent.Email);
+                var paymentList = db.Payments.ToList();
+                ViewBag.paymentId = new SelectList(paymentList, "PaymentId", "PaymentName");
+
+                int t = Convert.ToInt32(Request.Form["paymentId"]);
+                var check = db.Agents.FirstOrDefault(a => a.Email.Equals(rv.Agent.Email));
                 if (check == null)
                 {
                     rv.Agent.Password = GetMD5(rv.Agent.Password);
                     rv.Agent.ConfirmPassword = GetMD5(rv.Agent.ConfirmPassword);
                     rv.Agent.isActivate = false;
-                    //db.Configuration.ValidateOnSaveEnabled = false;
+                    rv.Agent.paymentId = t;
                     db.Agents.Add(rv.Agent);
                     db.SaveChanges();
                     return RedirectToAction("Login", "RegisterLoginView");
@@ -43,24 +47,29 @@ namespace Project_Real__estate.Controllers
                 else
                 {
                     ViewBag.error = "Email already existed";
-                    return View("Register", rv);
+                    return View("Register");
                 }
             }
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName", rv.Agent.UserId);
-            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName", rv.Agent.paymentId);
+            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName", rv.Agent.paymentId);
             return View("Register", rv);
         }
         public ActionResult RegisterSeller(AgentSellerView rv)
         {
             if (ModelState.IsValid)
             {
+                var paymentList = db.Payments.ToList();
+                ViewBag.paymentId = new SelectList(paymentList, "PaymentId", "PaymentName");
+
+                int t = Convert.ToInt32(Request.Form["paymentId"]);
                 //ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
-                var check = db.Sellers.FirstOrDefault(s => s.Email == rv.Seller.Email);
+                var check = db.Sellers.FirstOrDefault(s => s.Email.Equals( rv.Seller.Email));
                 if (check == null)
                 {
                     rv.Seller.Password = GetMD5(rv.Seller.Password);
                     rv.Seller.ConfirmPassword = GetMD5(rv.Seller.ConfirmPassword);
                     rv.Seller.isActivate = false;
+                    rv.Agent.paymentId = t;
                     //db.Sellers.Add(rv.Seller);
                     //db.Configuration.ValidateOnSaveEnabled = false;
                     db.Sellers.Add(rv.Seller);
@@ -74,7 +83,7 @@ namespace Project_Real__estate.Controllers
                 }
             }
             ViewBag.UserId = new SelectList(db.Users, "UserId", "UserName");
-            ViewBag.paymentId = new SelectList(db.Payments.ToList(), "PaymentId", "PaymentName");
+            ViewBag.paymentId = new SelectList(db.Payments, "PaymentId", "PaymentName");
             return View("Register", rv);
         }
         public static string GetMD5(string str)

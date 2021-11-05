@@ -37,7 +37,7 @@ namespace Project_Real__estate.Models
         [RegularExpression(@"(?=.*\d)(?=.*[A-Za-z]).{8,}",
             ErrorMessage = "Password minimum 8 characters at least 1 letter and 1 number")]
         public string Password { get; set; }
-        [Required]
+        [Required,Display(Name="Confirm Password")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; }

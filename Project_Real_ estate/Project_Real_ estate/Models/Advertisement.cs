@@ -25,24 +25,28 @@ namespace Project_Real__estate.Models
         [Key]
         public int adsId { get; set; }
         [Required, StringLength(maximumLength: 100, MinimumLength = 20)]
+        [Display(Name ="Title")]
         public string Tiltle { get; set; }
-        [Column(TypeName = "date")]
+        [Column(TypeName = "date"),Display(Name ="Release Date")]
         [Required, DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ReleaseDate { get; set; }
-        [Column(TypeName = "date")]
+        [Column(TypeName = "date"),Display(Name = " Expiration Date")]
         [Required, DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpirationDate { get; set; }
         public Nullable<int> SellerId { get; set; }
         public Nullable<int> AgentId { get; set; }
-        public int PaymentId { get; set; }
+        [Display(Name ="Payment Type")]
+        public int? PaymentId { get; set; }
+        [Display(Name = "Category of Real Estate")]
         public Nullable<int> CategoryId { get; set; }
         public string Describe { get; set; }
-        [StringLength(10)]
+        [StringLength(10),Display(Name ="Current Symbol")]
         public string CurrentSymbol { get; set; }
+        [Display(Name ="Price of Ads")]
         public double priceOfAds { get; set; }
-        [Required]
+        [Required,Display(Name = "Estate Price")]
         public double EstatePrice { get; set; }
         public double Facade { get; set; }
         public double Gateway { get; set; }
@@ -56,7 +60,7 @@ namespace Project_Real__estate.Models
         [Required]
         public double Area { get; set; }
 
-        [Required, StringLength(50)]
+        [Required, StringLength(50),Display(Name ="City/Province")]
         public string Cityprovince { get; set; }
 
         [Required, StringLength(50)]
@@ -70,7 +74,7 @@ namespace Project_Real__estate.Models
 
         public bool isActivate { get; set; }
         public Nullable<int> UserId { get; set; }
-        [Required,StringLength(20)]
+        [Required,StringLength(20), Display(Name ="House Status")]
         public string StatusHouse { get; set; }
 
         public virtual Agent Agent { get; set; }

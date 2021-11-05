@@ -1,4 +1,5 @@
 ﻿@model Project_Real__estate.Models.AgentSellerView
+@*@model Project_Real__estate.Models.Seller*@
 @{
     
     Layout = "~/Views/Shared/_LayoutSingle.cshtml";
@@ -42,6 +43,10 @@
                                     <div class="form-group">
                                         @Html.EditorFor(model => model.Agent.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Email) } })
                                         @Html.ValidationMessageFor(model => model.Agent.Email, "", new { @class = "text-danger" })
+                                        @if (ViewBag.error != null)
+                                        {
+                                            <span class="text-danger">@ViewBag.error</span>
+                                        }
                                     </div>
                                     <div class="form-group">
                                         @Html.EditorFor(model => model.Agent.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Address) } })
@@ -64,10 +69,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         @Html.DropDownList("paymentId", null, htmlAttributes: new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Agent.paymentId, "", new { @class = "text-danger" })
+                                       
+                                            
+
+                                            @Html.ValidationMessageFor(model => model.Agent.paymentId, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
                                         @Html.EditorFor(model => model.Agent.Introduction, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Agent.Introduction) } })
+                                       
                                         @Html.ValidationMessageFor(model => model.Agent.Introduction, "", new { @class = "text-danger" })
                                     </div>
                                     <div class="form-group">
@@ -121,7 +130,10 @@
                                     <div class="form-group">
                                         @Html.EditorFor(model => model.Seller.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Email) } })
                                         @Html.ValidationMessageFor(model => model.Seller.Email, "", new { @class = "text-danger" })
-                                       
+                                        @if (ViewBag.error != null)
+                                        {
+                                            <span class="text-danger">@ViewBag.error</span>
+                                        }
                                     </div>
                                     <div class="form-group">
                                         @Html.EditorFor(model => model.Seller.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = @Html.DisplayNameFor(model => model.Seller.Phone) } })

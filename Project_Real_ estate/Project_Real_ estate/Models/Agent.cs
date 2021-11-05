@@ -24,7 +24,7 @@ namespace Project_Real__estate.Models
 
         public int AgentId { get; set; }
 
-        [Required, StringLength(maximumLength: 50, MinimumLength = 3)]
+        [Required, StringLength(maximumLength: 50, MinimumLength = 3),Display(Name ="Agent Name")]
         public string AgentName { get; set; }
 
         [Required, StringLength(50)]
@@ -45,13 +45,15 @@ namespace Project_Real__estate.Models
             ErrorMessage = "Password minimum 8 characters at least 1 letter and 1 number")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
+        [Required,Display(Name ="Confirm Password")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; }
         public string Introduction { get; set; }
+        [Display(Name ="Email Hide")]
         public bool EmailHide { get; set; }
-        public Nullable<int> paymentId { get; set; }
+        [Display(Name = "Payment Type")]
+        public int? paymentId { get; set; }
         public Nullable<int> UserId { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
